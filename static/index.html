@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Маркетплейс игровых товаров и услуг в Казахстане">
+  <title>Playerook KZ — игровые товары в тенге</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Playerook.kz — на главную">playerook<span>.kz</span></a>
+    <nav aria-label="Основная навигация">
+      <a href="#categories">Каталог</a>
+      <a href="#chats">Чаты</a>
+      <a href="#news">Новости</a>
+      <a id="account-link" href="#account">Войти</a>
+    </nav>
+    <span id="session-state" class="session-state">Гость</span>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Включить тёмную тему"></button>
+  </header>
+
+  <main>
+    <section id="home" class="page">
+      <div class="hero">
+        <img class="hero-image" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&amp;fit=crop&amp;w=1800&amp;q=85" alt="" fetchpriority="high">
+        <div class="hero-content">
+          <p class="eyebrow">ИГРОВОЙ МАРКЕТПЛЕЙС КАЗАХСТАНА</p>
+          <h1>Твои игры.<br>Твои правила.</h1>
+          <p class="hero-copy">Аккаунты, ресурсы и услуги от игроков. Цены в тенге, общение напрямую.</p>
+          <a class="button button-primary" href="#categories">Выбрать категорию</a>
+        </div>
+        <div class="hero-note">
+          <span class="hero-note-icon">₸</span>
+          <strong>Всё в тенге</strong>
+          <span>Понятные цены без конвертации</span>
+        </div>
+      </div>
+      <div class="home-links">
+        <a class="home-link" href="#categories"><span>01</span><strong>Найти игру</strong><small>Аккаунты, ресурсы и услуги</small></a>
+        <a class="home-link" href="#chats"><span>02</span><strong>Написать продавцу</strong><small>Личный чат по никнейму</small></a>
+        <a class="home-link" href="#news"><span>03</span><strong>Новости сообщества</strong><small>Обновления и распродажи</small></a>
+      </div>
+    </section>
+
+    <section id="categories" class="page section">
+      <div class="section-heading">
+        <div><p class="eyebrow">ВЫБИРАЙ СВОЁ</p><h2>Категории</h2></div>
+        <p class="muted">Сначала выбери раздел — покажем только подходящие объявления.</p>
+      </div>
+      <div class="category-grid">
+        <button class="category-card" type="button" data-category="account"><span class="category-icon">01</span><strong>Игровые аккаунты</strong><small>Готовые профили и прогресс</small><span class="category-action">Смотреть объявления →</span></button>
+        <button class="category-card" type="button" data-category="resource"><span class="category-icon">02</span><strong>Ресурсы и предметы</strong><small>Игровая валюта, предметы и наборы</small><span class="category-action">Смотреть объявления →</span></button>
+        <button class="category-card" type="button" data-category="service"><span class="category-icon">03</span><strong>Игровые услуги</strong><small>Помощь, обучение и сопровождение</small><span class="category-action">Смотреть объявления →</span></button>
+      </div>
+      <button id="all-categories" class="button button-light" type="button">Все объявления</button>
+    </section>
+
+    <section id="catalog" class="page section">
+      <div class="section-heading">
+        <div>
+          <p id="catalog-eyebrow" class="eyebrow">PLAYEROOK MARKET</p>
+          <h2 id="catalog-heading">Объявления</h2>
+        </div>
+        <div class="catalog-controls">
+          <button id="catalog-categories" class="button button-light" type="button">Категории</button>
+          <form id="search-form" class="search-form">
+          <label class="visually-hidden" for="search-input">Поиск товаров</label>
+          <input id="search-input" type="search" placeholder="Игра или товар">
+          <button class="button button-dark" type="submit">Найти</button>
+          </form>
+        </div>
+      </div>
+      <div id="listing-grid" class="listing-grid" aria-live="polite"></div>
+      <p id="catalog-message" class="message" role="status"></p>
+    </section>
+
+    <section id="account" class="page section account-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PLAYEROOK.KZ</p>
+          <h2>Вход и регистрация</h2>
+        </div>
+        <p class="muted">Создай профиль, чтобы публиковать объявления и общаться с продавцами.</p>
+      </div>
+      <div class="auth-layout">
+        <form id="auth-form" class="panel">
+          <h3 id="auth-heading">Войти в аккаунт</h3>
+          <label id="name-field" class="hidden">Имя
+            <input name="name" autocomplete="name" minlength="1" maxlength="80">
+          </label>
+          <label id="username-field" class="hidden">Никнейм (3–24 символа, латиница, цифры, _)
+            <input name="username" autocomplete="nickname" minlength="3" maxlength="24" pattern="[a-zA-Z0-9_]+" placeholder="например, gamer_kz">
+          </label>
+          <label>Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>Пароль (минимум 8 символов)
+            <input name="password" type="password" autocomplete="current-password" minlength="8" required>
+          </label>
+          <div class="button-row">
+            <button class="button button-primary" type="submit">Войти</button>
+            <button id="register-toggle" class="button button-light" type="button">Создать аккаунт</button>
+          </div>
+          <p id="auth-message" class="message" role="status"></p>
+        </form>
+        <aside class="auth-aside">
+          <span class="aside-mark">P.</span>
+          <h3>Играй и торгуй по-своему</h3>
+          <p>Твой никнейм — короткий адрес профиля. По нему тебя найдут в каталоге и чате.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="profile" class="page section profile-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">ТВОЙ ПРОФИЛЬ</p><h2>Личный кабинет</h2></div>
+      </div>
+      <div class="profile-card panel">
+        <div class="profile-avatar" id="profile-avatar">P</div>
+        <div class="profile-details">
+          <p class="profile-kicker">ПРОФИЛЬ PLAYEROOK</p>
+          <h3 id="profile-name">Игрок</h3>
+          <p id="profile-username" class="profile-username">@nickname</p>
+          <div class="profile-facts">
+            <div><span>Номер аккаунта</span><strong id="profile-public-id">#1000</strong></div>
+            <div><span>Роль</span><strong id="profile-role">Пользователь</strong></div>
+            <div><span>Email</span><strong id="profile-email">—</strong></div>
+            <div><span>На Playerook с</span><strong id="profile-created">—</strong></div>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <a class="button button-primary" href="#sell">Мои объявления</a>
+          <a class="button button-light" href="#chats">Мои чаты</a>
+          <button id="logout-button" class="button button-light" type="button">Выйти</button>
+        </div>
+      </div>
+      <div class="section-heading profile-list-heading"><div><p class="eyebrow">ТВОИ ПРЕДЛОЖЕНИЯ</p><h2>Мои объявления</h2></div><button id="new-listing" class="button button-primary" type="button">＋ Новое объявление</button></div>
+      <p id="profile-message" class="message" role="status"></p>
+      <div id="my-listings" class="my-listings"></div>
+    </section>
+
+    <section id="sell" class="page section sell-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">СВОЁ ПРЕДЛОЖЕНИЕ</p><h2>Добавить объявление</h2></div>
+      </div>
+      <form id="listing-form" class="panel listing-form">
+        <input name="listing_id" type="hidden">
+        <p id="listing-form-mode" class="muted">Объявление сразу появится в выбранной категории.</p>
+        <label>Название<input name="title" required maxlength="120"></label>
+        <div class="form-row">
+          <label>Игра<input name="game" required maxlength="80"></label>
+          <label>Категория
+            <select name="category" required>
+              <option value="account">Аккаунт</option>
+              <option value="resource">Ресурсы</option>
+              <option value="service">Услуги</option>
+            </select>
+          </label>
+        </div>
+        <label>Описание<textarea name="description" required maxlength="2000" rows="3"></textarea></label>
+        <label>Цена, ₸<input name="price_kzt" type="number" min="1" required></label>
+        <div class="button-row"><button id="listing-submit" class="button button-primary" type="submit">Опубликовать</button><button id="listing-cancel" class="button button-light hidden" type="button">Отмена</button></div>
+        <p id="listing-message" class="message" role="status"></p>
+      </form>
+    </section>
+
+    <section id="chats" class="page section chats-page">
+      <div class="section-heading"><div><p class="eyebrow">НА СВЯЗИ</p><h2>Сообщения</h2></div><p class="muted">Обсуди детали напрямую с продавцом или следи за новостями.</p></div>
+      <div class="chat-tabs" role="tablist" aria-label="Разделы сообщений">
+        <button id="private-tab" class="chat-tab active" type="button" role="tab" aria-selected="true">Личные сообщения</button>
+        <button id="channel-tab" class="chat-tab" type="button" role="tab" aria-selected="false">Новости и акции</button>
+      </div>
+      <div id="private-panel" class="chat-layout" role="tabpanel">
+        <aside class="panel chat-contacts">
+          <h3>Начать диалог</h3>
+          <form id="chat-start-form" class="chat-start-form"><label for="chat-recipient">Никнейм продавца</label><div><input id="chat-recipient" placeholder="@nickname" autocomplete="off" required><button class="button button-primary" type="submit">Открыть</button></div></form>
+          <p class="muted">Написать продавцу также можно из карточки товара.</p>
+        </aside>
+        <div class="panel chat-panel">
+          <div id="chat-title" class="chat-title">Выбери продавца, чтобы начать переписку</div>
+          <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
+          <form id="chat-form" class="chat-compose">
+            <label class="visually-hidden" for="chat-input">Сообщение</label>
+            <input id="chat-input" placeholder="Написать сообщение…" maxlength="4000" required>
+            <button class="button button-primary" type="submit">Отправить</button>
+          </form>
+          <p id="chat-message" class="message" role="status"></p>
+        </div>
+      </div>
+      <div id="channel-panel" class="panel channel-panel hidden" role="tabpanel">
+        <div class="channel-heading"><div class="channel-avatar">P</div><div><strong>Playerook KZ</strong><span>Новости сообщества и объявления в реальном времени</span></div><span class="live-indicator">LIVE</span></div>
+        <div id="chat-news-list" class="chat-news-list" aria-live="polite"></div>
+        <p id="channel-message" class="message" role="status"></p>
+      </div>
+    </section>
+
+    <section id="news" class="page section news-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">PLAYERook KZ</p><h2>Новости и обновления</h2></div>
+      </div>
+      <div id="news-list" class="news-list"></div>
+    </section>
+  </main>
+  <footer><a class="brand" href="#home">playerook<span>.kz</span></a><p>Игровой рынок Казахстана. Учебный проект по сетевому программированию.</p></footer>
+  <script src="static/js/app.js" defer></script>
+</body>
+</html>

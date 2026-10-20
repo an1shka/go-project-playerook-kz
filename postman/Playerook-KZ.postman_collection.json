@@ -1,0 +1,113 @@
+{
+  "info": {
+    "_postman_id": "6b2ae85e-b2cb-4f0d-8e9f-47a1160432b4",
+    "name": "Playerook KZ API",
+    "description": "REST API for the Playerook KZ course project. Run Register then Login; the collection stores the JWT automatically.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" },
+    { "key": "listingId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/health" }
+    },
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Gamer\",\n  \"username\": \"test_gamer\",\n  \"email\": \"gamer@example.com\",\n  \"password\": \"test-password-123\"\n}" },
+        "url": "{{baseUrl}}/api/auth/register"
+      },
+      "event": [{
+        "listen": "test",
+        "script": { "type": "text/javascript", "exec": ["if (pm.response.code === 201) pm.collectionVariables.set('token', pm.response.json().token);"] }
+      }]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"gamer@example.com\",\n  \"password\": \"test-password-123\"\n}" },
+        "url": "{{baseUrl}}/api/auth/login"
+      },
+      "event": [{
+        "listen": "test",
+        "script": { "type": "text/javascript", "exec": ["if (pm.response.code === 200) pm.collectionVariables.set('token', pm.response.json().token);"] }
+      }]
+    },
+    {
+      "name": "Profile",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/profile"
+      }
+    },
+    {
+      "name": "List listings",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/listings?q=Genshin&limit=20&offset=0" }
+    },
+    {
+      "name": "Create listing",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Аккаунт с редкими персонажами\",\n  \"game\": \"Genshin Impact\",\n  \"category\": \"account\",\n  \"description\": \"Почта для передачи, подробности в чате.\",\n  \"price_kzt\": 15000,\n  \"image_url\": \"\"\n}" },
+        "url": "{{baseUrl}}/api/listings"
+      },
+      "event": [{
+        "listen": "test",
+        "script": { "type": "text/javascript", "exec": ["if (pm.response.code === 201) pm.collectionVariables.set('listingId', pm.response.json().id);"] }
+      }]
+    },
+    {
+      "name": "Get listing",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/listings/{{listingId}}" }
+    },
+    {
+      "name": "Update listing (owner)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Аккаунт с редкими персонажами — скидка\",\n  \"game\": \"Genshin Impact\",\n  \"category\": \"account\",\n  \"description\": \"Обновлённое описание, подробности в чате.\",\n  \"price_kzt\": 13000,\n  \"image_url\": \"\"\n}" },
+        "url": "{{baseUrl}}/api/listings/{{listingId}}"
+      }
+    },
+    {
+      "name": "Delete listing (owner)",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/listings/{{listingId}}"
+      }
+    },
+    {
+      "name": "News",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/news" }
+    },
+    {
+      "name": "Publish news (any authenticated user)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Распродажа выходного дня\",\n  \"body\": \"На этой неделе скидки на игровые ресурсы.\"\n}" },
+        "url": "{{baseUrl}}/api/news"
+      }
+    }
+  ]
+}
